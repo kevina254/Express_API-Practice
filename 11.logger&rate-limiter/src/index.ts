@@ -3,10 +3,19 @@ import todoRoutes from './router/todo.routes';
 import userRoutes from './router/user.routes';
 import { logger } from './middleware/logger';
 import { rateLimiterMiddleware } from './middleware/rateLimiter';
+import cors from 'cors'
 
 const initializeApp = () => {
     //create express app
     const app = express();
+
+    
+    //middleware
+    app.use(express.json()); //parse json request body
+    app.use(cors({
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    }))
 
     //middleware
     app.use(express.json()); //parse json request body
